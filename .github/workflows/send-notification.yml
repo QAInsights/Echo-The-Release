@@ -1,0 +1,17 @@
+on:
+  push:
+    paths:
+      - 'release-versions/*'
+jobs:
+  send-notifications:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Web Request Action
+      uses: Satak/webrequest-action@v1.2.3
+      with:
+        url: https://api.notifymyecho.com/v1/NotifyMe
+        method: POST
+        payload: '{"notification": "New release", "accessCode": "${{ secrets.ECHO_KEY }}", "title": "New release"}'
+     
