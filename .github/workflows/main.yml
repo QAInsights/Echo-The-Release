@@ -26,4 +26,4 @@ jobs:
     - name: Run a multi-line script
       run: |
         curl -sL https://api.github.com/repos/QAInsights/Echo-The-Release/releases/latest | \
-        jq -r ".tag_name" > release-versions/swagger-ui-latest.txt      
+        jq -r ".tag_name" > release-versions/echo.txt      
