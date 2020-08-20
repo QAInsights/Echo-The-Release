@@ -4,9 +4,7 @@ name: CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on:
-  release:
-    types: [published]
+on: [push]
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,4 +24,6 @@ jobs:
     - name: Run a multi-line script
       run: |
         curl -sL https://api.github.com/repos/QAInsights/Echo-The-Release/releases/latest | \
-        jq -r ".tag_name" > release-versions/echo.txt      
+        jq -r ".tag_name" > release-versions/echo.txt
+        cat release-versions/echo.txt
+        
