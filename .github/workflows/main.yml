@@ -26,4 +26,14 @@ jobs:
         curl -sL https://api.github.com/repos/QAInsights/Echo-The-Release/releases/latest | \
         jq -r ".tag_name" > release-versions/echo.txt
         cat release-versions/echo.txt
+    - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
+      - name: Commit latest release version
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'QAInsights'
+          git config --global user.email 'catch.nkn@gmail.com'
+          git commit -am "New release version"
+          git push
         
