@@ -13,5 +13,5 @@ jobs:
       with:
         url: https://api.notifymyecho.com/v1/NotifyMe
         method: POST
-        payload: '{"notification": "New release", "accessCode": "${{ secrets.ECHO_KEY }}", "title": "New release"}'
+        payload: '{"notification": "New release is now available", "accessCode": "${{ secrets.ECHO_KEY }}", "title": "New Release"}'
      
