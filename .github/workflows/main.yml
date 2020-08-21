@@ -16,11 +16,7 @@ jobs:
       run: |
         echo "2" > Another-Sample-Repo/echo.txt
      
-    - name: Check for modified files
-      id: git-check
-      run: | 
-        echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
-        git status --porcelain
+
       
     - name: Commit latest release version
       if: steps.git-check.outputs.modified == 'true'
