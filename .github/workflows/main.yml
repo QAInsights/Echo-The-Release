@@ -10,21 +10,21 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "11" > Sample-Repo/echo.txt
+        echo "12" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "11" > Another-Sample-Repo/echo.txt
+        echo "12" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
       run: | 
         git diff --name-only | xargs -L1 dirname | uniq > changes.txt
-        echo $(wc -l changes.txt)
+        #echo $(wc -l changes.txt)
         while read p; do          
           if [ $p != "." ]
           then
-            echo $p
+            echo ${p}
             msg=" {"notification":" " + ${p}+ " ","accessCode":"ACCESS_CODE"} "
             echo ${msg}
             #curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d $msg
