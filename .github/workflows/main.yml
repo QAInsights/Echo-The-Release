@@ -10,11 +10,11 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "33" > Sample-Repo/echo.txt
+        echo "00" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "33" > Another-Sample-Repo/echo.txt
+        echo "00" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
@@ -32,7 +32,7 @@ jobs:
             jq --arg prefix "$voice" '
             .notification |= map_values($prefix + .)
             ' msg.json            
-            echo $msg.json
+            cat msg.json
             #curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d $msg
           fi
         done <changes.txt        
