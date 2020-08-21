@@ -10,11 +10,11 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "1" > Sample-Repo/echo.txt
+        echo "2" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "1" > Another-Sample-Repo/echo.txt
+        echo "2" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
@@ -23,6 +23,7 @@ jobs:
         echo $(wc -l changes.txt)
         while read p; do          
           if $p != "."
+          then
             echo $p
           fi
         done <changes.txt        
