@@ -10,21 +10,20 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "19" > Sample-Repo/echo.txt
+        echo "20" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "18" > Another-Sample-Repo/echo.txt
+        echo "20" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
       run: | 
         git diff --name-only | xargs -L1 dirname | uniq > changes.txt
-        echo $(wc -l changes.txt | awk '{print $1}')
-        cat changes.txt | while read line;          
-          do
-            echo $line  
-          done
+        echo $(wc -l changes.txt)
+        while read p; do
+          echo "$p"
+        done <changes.txt        
         echo > changes.txt
       
     - name: Commit latest release version
