@@ -10,7 +10,7 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "18" > Sample-Repo/echo.txt
+        echo "19" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
