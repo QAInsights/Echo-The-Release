@@ -10,11 +10,11 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "00" > Sample-Repo/echo.txt
+        echo "01" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "00" > Another-Sample-Repo/echo.txt
+        echo "01" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
@@ -27,7 +27,7 @@ jobs:
             echo ${p}
             voice="New release for $p"
             echo $voice
-            msg=' {"notification":"Hello World!","accessCode":"${{ secrets.ECHO_KEY }}"} '    
+            msg=' {"notification":"default","accessCode":"${{ secrets.ECHO_KEY }}"} '    
             cat $msg > msg.json        
             jq --arg prefix "$voice" '
             .notification |= map_values($prefix + .)
