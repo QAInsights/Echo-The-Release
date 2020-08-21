@@ -1,5 +1,7 @@
-name: CI
-on: [push]
+name: Echo the Release
+on:
+  schedule:
+    - cron: "*/1 * * * *" 
 
 jobs:
   get-version:
@@ -10,11 +12,13 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "kk" > Sample-Repo/echo.txt
+        curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | \
+        jq -r ".tag_name" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "kk" > Another-Sample-Repo/echo.txt
+        curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | \
+        jq -r ".tag_name" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
