@@ -16,7 +16,10 @@ jobs:
       run: |
         echo "2" > Another-Sample-Repo/echo.txt
      
-
+    - name: Check for modified files
+      id: git-check
+      run: | 
+        git status --porcelain
       
     - name: Commit latest release version
       run: |
