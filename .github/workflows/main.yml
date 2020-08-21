@@ -8,11 +8,17 @@ jobs:
     - uses: actions/checkout@v2
       with:
         token: ${{ secrets.ECHO_TOKEN }}
-    - name: Run a multi-line script
+    - name: Repo 1
       run: |
         curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | \
         jq -r ".tag_name" > Sample-Repo/echo.txt
         echo "hello" > Sample-Repo/echo.txt
+        
+    - name: Repo 2
+      run: |
+        curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | \
+        jq -r ".tag_name" > Sample-Repo/echo.txt
+        echo "second repo" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
