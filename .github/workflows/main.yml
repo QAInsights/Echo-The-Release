@@ -10,7 +10,7 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "3" > Sample-Repo/echo.txt
+        echo "4" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
@@ -19,7 +19,7 @@ jobs:
     - name: Check for modified files
       id: git-check
       run: | 
-        git status --porcelain
+        git diff --name-only | xargs -L1 dirname | uniq
       
     - name: Commit latest release version
       run: |
