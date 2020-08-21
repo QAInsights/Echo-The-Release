@@ -12,6 +12,7 @@ jobs:
       run: |
         curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | \
         jq -r ".tag_name" > Sample-Repo/echo.txt
+        echo "hello" > Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
