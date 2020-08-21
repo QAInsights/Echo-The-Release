@@ -10,17 +10,21 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "7" > Sample-Repo/echo.txt
+        echo "8" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "7" > Another-Sample-Repo/echo.txt
+        echo "8" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
       run: | 
-        git diff --name-only | xargs -L1 dirname | uniq
-        curl -XPOST -d '{"notification": "New release is now available", "accessCode": "${{ secrets.ECHO_KEY }}", "title": "New Release"}' 'https://api.notifymyecho.com/v1/NotifyMe'
+        git diff --name-only | xargs -L1 dirname | uniq > changes.txt
+        wc -l ver.txt | awk '{print $1}'
+        for o in wc -l ver.txt | awk '{print $1}'
+          do
+            curl -XPOST -d '{"notification": "New release is now available", "accessCode": "${{ secrets.ECHO_KEY }}", "title": "New Release"}' 'https://api.notifymyecho.com/v1/NotifyMe'
+          done   
       
     - name: Commit latest release version
       run: |
