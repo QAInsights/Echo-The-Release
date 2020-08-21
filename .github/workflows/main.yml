@@ -10,11 +10,11 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "17" > Sample-Repo/echo.txt
+        echo "18" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "17" > Another-Sample-Repo/echo.txt
+        echo "18" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
@@ -25,7 +25,7 @@ jobs:
           do
             echo $line  
           done
-        echo "" > changes.txt
+        echo > changes.txt
       
     - name: Commit latest release version
       run: |
