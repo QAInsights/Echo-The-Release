@@ -17,7 +17,7 @@ jobs:
       id: git-check
       run: | 
         echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
-        echo ::set-output name=changename::$([ -z "`git status --porcelain`" ])
+        git status --porcelain
       
     - name: Commit latest release version
       if: steps.git-check.outputs.modified == 'true'
