@@ -10,11 +10,11 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        echo "gg" > Sample-Repo/echo.txt
+        echo "hh" > Sample-Repo/echo.txt
         
     - name: Repo 2
       run: |
-        echo "gg" > Another-Sample-Repo/echo.txt
+        echo "hh" > Another-Sample-Repo/echo.txt
      
     - name: Check for modified files
       id: git-check
@@ -25,8 +25,11 @@ jobs:
           if [ $p != "." ]
           then
             voice="New release for $p"
-            msg="\'{"notification":"$voice","accessCode":"${{ secrets.ECHO_KEY }}"}\'"
-            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d $msg
+            msg="\'{"notification":"$voice","accessCode":" "
+            a="${{ secrets.ECHO_KEY }}"}\'"
+            f=$msg$a
+            echo $f
+            #curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d $f
           fi
         done <changes.txt        
         echo "" > changes.txt
