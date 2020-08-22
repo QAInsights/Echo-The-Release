@@ -1,8 +1,7 @@
 name: Echo the Release
-on:
+on: 
   schedule:
     - cron: "*/1 * * * *" 
-
 jobs:
   get-version:
     runs-on: ubuntu-latest
@@ -12,13 +11,19 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | \
-        jq -r ".tag_name" > Sample-Repo/echo.txt
+        t=$(curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | jq -r ".tag_name")
+        if [ ${t} != null ]
+        then
+          echo ${t} > Sample-Repo/echo.txt
+        fi
         
     - name: Repo 2
       run: |
-        curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | \
-        jq -r ".tag_name" > Another-Sample-Repo/echo.txt
+        t=$(curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | jq -r ".tag_name")
+        if [ ${t} != null ]
+        then
+          echo ${t} > Another-Sample-Repo/echo.txt
+        fi
      
     - name: Check for modified files
       id: git-check
