@@ -1,7 +1,5 @@
 name: Echo the Release
-on: 
-  schedule:
-    - cron: "*/1 * * * *" 
+on: [push]
 jobs:
   get-version:
     runs-on: ubuntu-latest
@@ -34,7 +32,7 @@ jobs:
           if [ $p != "." ]
           then
             voice="New release for $p"
-            msg=\''{"notification":"New release is now available for '"$p"'.","accessCode":"${{ secrets.ECHO_KEY }}"}'\'
+            msg=\''{"notification":"New release is now available for '"$p"'.","accessCode":"'"${{ secrets.ECHO_KEY }}"'"}'\'
             curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d msg
           fi
         done <changes.txt        
