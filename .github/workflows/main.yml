@@ -14,7 +14,7 @@ jobs:
         #then
         #  echo ${t} > Sample-Repo/echo.txt
         #fi
-        echo "4" > Sample-Repo/echo.txt
+        echo "5" > Sample-Repo/echo.txt
         
     - name: Repo 3
       run: |
@@ -35,9 +35,9 @@ jobs:
             voice="New release for $p"
             k=${{ secrets.ECHO_KEY }}
             echo $p $k
-            msg=\''{"notification":"New release is now available for '"$p"'.","accessCode":"'"$k"'"}'\'
-            echo ${msg}
-            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d ${msg}
+            #msg=\'\'
+            #echo ${msg}
+            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d ${msg} ']'{"notification":"New release is now available for '"$p"'.","accessCode":"'"$k"'"}'
           fi
         done <changes.txt        
         echo "" > changes.txt
