@@ -9,11 +9,12 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        t=$(curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | jq -r ".tag_name")
-        if [ ${t} != null ]
-        then
-          echo ${t} > Sample-Repo/echo.txt
-        fi
+        #t=$(curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | jq -r ".tag_name")
+        #if [ ${t} != null ]
+        #then
+        #  echo ${t} > Sample-Repo/echo.txt
+        #fi
+        echo "1" > Sample-Repo/echo.txt
         
     - name: Repo 3
       run: |
@@ -35,6 +36,7 @@ jobs:
             k=${{ secrets.ECHO_KEY }}
             echo $p $k
             msg=\''{"notification":"New release is now available for '"$p"'.","accessCode":"'"$k"'"}'\'
+            echo $msg
             curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d msg
           fi
         done <changes.txt        
