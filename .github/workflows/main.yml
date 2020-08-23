@@ -34,7 +34,8 @@ jobs:
           if [ $p != "." ]
           then
             voice="New release for $p"
-            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d '{"notification":"New release is now available for "'"$p"'".","accessCode":"${{ secrets.ECHO_KEY }}"}'
+            msg=\' '{"notification":"New release is now available for "'"$p"'".","accessCode":"${{ secrets.ECHO_KEY }}"}' \'
+            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d msg
           fi
         done <changes.txt        
         echo "" > changes.txt
