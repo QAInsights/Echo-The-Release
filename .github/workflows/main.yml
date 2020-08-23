@@ -15,7 +15,7 @@ jobs:
           echo ${t} > Sample-Repo/echo.txt
         fi
         
-    - name: Repo 10
+    - name: Repo 12
       run: |
         t=$(curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | jq -r ".tag_name")
         if [ ${t} != null ]
@@ -32,7 +32,7 @@ jobs:
           if [ $p != "." ]
           then
             voice="New release for $p"
-            msg=\''{"notification":"New release is now available for '"$p"'.","accessCode": ${{ secrets.ECHO_KEY }} }'\'
+            msg=\''{"notification":"New release is now available for '"$p"'.","accessCode": '"${{ secrets.ECHO_KEY }}"' }'\'
             curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d msg
           fi
         done <changes.txt        
