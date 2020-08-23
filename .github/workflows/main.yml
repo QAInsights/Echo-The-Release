@@ -14,7 +14,7 @@ jobs:
         #then
         #  echo ${t} > Sample-Repo/echo.txt
         #fi
-        echo "5" > Sample-Repo/echo.txt
+        echo "6" > Sample-Repo/echo.txt
         
     - name: Repo 3
       run: |
@@ -37,7 +37,7 @@ jobs:
             echo $p $k
             #msg=\'\'
             #echo ${msg}
-            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d ${msg} ']'{"notification":"New release is now available for '"$p"'.","accessCode":"'"$k"'"}'
+            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d ${msg} '{"notification":"New release is now available for '"$p"'.","accessCode":"'"$k"'"}'
           fi
         done <changes.txt        
         echo "" > changes.txt
