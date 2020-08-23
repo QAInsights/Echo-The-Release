@@ -11,7 +11,7 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        t=$(curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | jq -r ".tag_name")
+        t=$(curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | jq -r ".name")
         if [ ${t} != null ]
         then
           echo ${t} > Sample-Repo/echo.txt
@@ -19,7 +19,7 @@ jobs:
                 
     - name: Repo 2
       run: |
-        t=$(curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | jq -r ".tag_name")
+        t=$(curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | jq -r ".name")
         if [ ${t} != null ]
         then
           echo ${t} > Another-Sample-Repo/echo.txt
@@ -29,12 +29,11 @@ jobs:
       id: git-check
       run: | 
         git diff --name-only | xargs -L1 dirname | uniq > changes.txt
-        #echo $(wc -l changes.txt)
-        while read p; do          
+        while read p; do
           if [ $p != "." ]
           then
             k=${{ secrets.ECHO_KEY }}
-            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d ${msg} '{"notification":"New release is now available for '"$p"'.","accessCode":"'"$k"'"}'
+            curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d '{"notification":"New release is now available for '"$p"'.","accessCode":"'"$k"'"}'
           fi
         done <changes.txt        
         echo "" > changes.txt
