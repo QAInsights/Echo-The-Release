@@ -1,5 +1,7 @@
 name: Echo the Release
-on: [push]
+on: 
+  schedule:
+    - cron: "*/1 * * * *"
 jobs:
   get-version:
     runs-on: ubuntu-latest
@@ -9,14 +11,13 @@ jobs:
         token: ${{ secrets.ECHO_TOKEN }}
     - name: Repo 1
       run: |
-        #t=$(curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | jq -r ".tag_name")
-        #if [ ${t} != null ]
-        #then
-        #  echo ${t} > Sample-Repo/echo.txt
-        #fi
-        echo "6" > Sample-Repo/echo.txt
-        
-    - name: Repo 3
+        t=$(curl -sL https://api.github.com/repos/QAInsights/Sample-Repo/releases/latest | jq -r ".tag_name")
+        if [ ${t} != null ]
+        then
+          echo ${t} > Sample-Repo/echo.txt
+        fi
+                
+    - name: Repo 2
       run: |
         t=$(curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | jq -r ".tag_name")
         if [ ${t} != null ]
@@ -32,11 +33,7 @@ jobs:
         while read p; do          
           if [ $p != "." ]
           then
-            voice="New release for $p"
             k=${{ secrets.ECHO_KEY }}
-            echo $p $k
-            #msg=\'\'
-            #echo ${msg}
             curl https://api.notifymyecho.com/v1/NotifyMe -H "Content-Type: application/json" -d ${msg} '{"notification":"New release is now available for '"$p"'.","accessCode":"'"$k"'"}'
           fi
         done <changes.txt        
