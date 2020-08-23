@@ -15,7 +15,7 @@ jobs:
           echo ${t} > Sample-Repo/echo.txt
         fi
         
-    - name: Repo 2
+    - name: Repo 3
       run: |
         t=$(curl -sL https://api.github.com/repos/QAInsights/Another-Sample-Repo/releases/latest | jq -r ".tag_name")
         if [ ${t} != null ]
